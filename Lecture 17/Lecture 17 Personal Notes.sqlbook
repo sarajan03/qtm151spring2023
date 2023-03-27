@@ -8,9 +8,6 @@ SQL is a language specializing in database management
 - Widely used in industry
 - Typical task is to extract data from server
 - Many concepts are similar to Python
--- SQLBook: Code
--- Active: 1674012636529@@127.0.0.1@5432@postgres
-print(Sushmita Rajan)
 -- SQLBook: Markup
 # <span style="color:darkblue"> I. Connect to Local Server </span>
 
@@ -44,7 +41,6 @@ Delete existing table
 -- System commands are in upper case and user defined
 -- names are in lower case
 -- Comments are written with double dashes "--" rather than hastag (#)
--- semicolon ends code
 
 DROP TABLE IF EXISTS drivers;
 -- SQLBook: Markup
@@ -103,9 +99,7 @@ Try it yourself!
 -- Select a new driver id (needs to be unique)
 -- Make sure to deparate arguments by a semicolon!
 
-INSERT INTO drivers VALUES (5, 'Sushmita Rajan', 'Indian', 50 );
 
-INSERT INTO drivers VALUES (6, 'Onion Vusirikala', 'Indian', 47);
 
 
 -- SQLBook: Markup
@@ -119,7 +113,7 @@ Extracting columns from table
 -- SELECT extracts certain COLUMNS
 -- FROM is used to indicate the source table
 
-SELECT driver_id, nationality FROM drivers;
+SELECT driver_id nationality FROM drivers;
 -- SQLBook: Markup
 <font size="5"> 
 
@@ -140,9 +134,6 @@ WHERE nationality = 'German';
 SELECT * FROM drivers
 WHERE (nationality = 'German') OR (nationality = 'British');
 
-SELECT * FROM drivers
-WHERE (nationality = 'Indian') OR (nationality = 'United States');
-
 -- Evaluate AND conditions
 SELECT * FROM drivers
 WHERE (nationality = 'German') AND (driver_id = 2);
@@ -156,7 +147,7 @@ Aggregate
 -- such as SUM() or AVG() 
 -- The AS is an alias which assigns a name to the aggregate statistic
 
-SELECT COUNT(*) AS num_rows,--can do it any order// count just counts # of rows so don't need anything in paranthesis 
+SELECT COUNT(*) AS num_rows,
        SUM(victories) AS sum_victories,
        AVG(victories) AS mean_victories,
        MIN(victories) AS min_victories,
@@ -197,8 +188,7 @@ with more than 60 victories
 -- SQLBook: Code
 -- Write your own code!
 
-SELECT nationality, driver_id FROM drivers
-WHERE (victories >= 60);
+
 
 
 
@@ -263,8 +253,8 @@ Equivalence:
 
 **PYTHON** $\qquad \qquad \ \ $ **SQL** <br>
 ```[] ``` $\qquad \qquad \qquad \ \ \ $ ```SELECT``` <br>
-```.query() ``` $\qquad \qquad $ ```WHERE``` (before aggregating) <br>
-```.query() ``` $\qquad \qquad $ ```HAVING``` (after aggregating) <br>
+```.query() ``` $\qquad \qquad $ ```WHERE``` (before subsetting) <br>
+```.query() ``` $\qquad \qquad $ ```HAVING``` (after subsetting) <br>
 ```.groupby().agg() ``` $\ $ ```SELECT ... AS ... ```<br>
 $\qquad \qquad \qquad \qquad \ $```GROUP BY```<br>
 
