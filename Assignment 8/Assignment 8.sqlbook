@@ -6,7 +6,9 @@
 <font size = "5">
 Print your name below
 -- SQLBook: Code
+-- Active: 1679488973901@@127.0.0.1@5432@postgres
 
+--Sushmita Rajan--
 -- SQLBook: Markup
 
 <font size = "5">
@@ -30,10 +32,19 @@ HINT: Remember that you have to find the pathname of the <br>
 HINT: Include any column names with upper case in doube quotations, <br> e.g.
 "raceId". If you don't you'll get an error
 -- SQLBook: Code
+-- Active: 1679488973901@@127.0.0.1@5432@postgres
 -- Write your own code
 
+DROP TABLE IF EXISTS results ;
 
-
+CREATE TABLE results (
+    "raceId" int,
+    "driverId" int,
+    lap int, 
+    positon int, 
+    time varchar(255),
+    millisecond int 
+);
 
 
 -- SQLBook: Markup
@@ -48,8 +59,12 @@ $\quad$ <img src="figures/codebook_drivers.png" alt="drawing" width="300"/>
 and  import the data from "data_raw/drivers.csv" 
 
 -- SQLBook: Code
+-- Active: 1679488973901@@127.0.0.1@5432@postgres
 -- Write your own code
 
+COPY drivers
+FROM '/Users/sushmitarajan/Desktop/QTM 151/GitHub/qtm151spring2023/Assignment 8/data_raw/drivers.csv/private/tmp/data_raw/drivers.csv'
+WITH (DELIMITER ',', FORMAT csv, HEADER MATCH);
 
 
 
