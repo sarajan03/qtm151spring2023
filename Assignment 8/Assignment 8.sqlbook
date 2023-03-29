@@ -41,11 +41,14 @@ CREATE TABLE results (
     "raceId" int,
     "driverId" int,
     lap int, 
-    positon int, 
+    position int, 
     time varchar(255),
-    millisecond int 
+    milliseconds int 
 );
 
+COPY results
+FROM '/private/tmp/data_raw/lap_times.csv'
+WITH (DELIMITER ',', FORMAT csv, HEADER MATCH);
 
 -- SQLBook: Markup
 <font size = "5">
@@ -61,9 +64,23 @@ and  import the data from "data_raw/drivers.csv"
 -- SQLBook: Code
 -- Active: 1679488973901@@127.0.0.1@5432@postgres
 -- Write your own code
+DROP TABLE IF EXISTS drivers ;
+
+CREATE TABLE drivers (
+    "driverId" int,
+    "driverRef" varchar(255),
+    number varchar(255), 
+    code varchar(3), 
+    forename varchar(255),
+    surname varchar(255),
+    dob varchar(255),
+    nationality varchar(255),
+    url varchar(255)
+);
+
 
 COPY drivers
-FROM '/Users/sushmitarajan/Desktop/QTM 151/GitHub/qtm151spring2023/Assignment 8/data_raw/drivers.csv/private/tmp/data_raw/drivers.csv'
+FROM '/private/tmp/data_raw/drivers.csv'
 WITH (DELIMITER ',', FORMAT csv, HEADER MATCH);
 
 
@@ -89,13 +106,15 @@ Hints:
 
 -- SQLBook: Code
 -- Write your own code
-
+SELECT * FROM drivers
+WHERE nationality = 'American'
+ORDER BY surname ASC;
 
 
 -- SQLBook: Markup
 <font size = "5">
 
-(e) Count unique values
+(d) Count unique values
 
 <font size = "3">
 
@@ -107,13 +126,13 @@ HINT: Include "driverId" in quotations since it has a mix of <br>
 upper case and lower case letters
 -- SQLBook: Code
 -- Write your own code
-
-
-
+SELECT COUNT(DISTINCT "driverId") AS num_driverId,
+        COUNT(*)   AS num_drivers 
+FROM drivers;
 -- SQLBook: Markup
 <font size = "5">
 
-(d) Groupby + Aggregate + Sort
+(e) Groupby + Aggregate + Sort
 
 <font size = "3">
 
@@ -126,7 +145,11 @@ upper case and lower case letters
 -- SQLBook: Code
 -- Write your own code
 
-
+SELECT "driverId",
+       AVG(milliseconds) AS mean_milliseconds
+FROM results
+GROUP BY "driverId"
+ORDER BY mean_milliseconds ASC;
 
 -- SQLBook: Markup
 <font size = "5">
@@ -144,5 +167,7 @@ HINT: Include "driverId" in quotations since it has a mix of <br>
 upper case and lower case letters
 -- SQLBook: Code
 -- Write your own code
-
-
+SELECT * 
+FROM results
+LEFT JOIN drivers
+ON results."driverId"  = drivers."driverId";
