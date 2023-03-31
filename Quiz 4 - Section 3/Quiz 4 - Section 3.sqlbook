@@ -74,6 +74,7 @@ lectures for how to handle the permissions. <br>
 (rather than through the notebook), please include the code <br>
 you are running and add a comment that you used the terminal
 -- SQLBook: Code
+-- Active: 1679488973901@@127.0.0.1@5432@postgres
 -- Write your own code
 
 COPY pit_stops
@@ -81,7 +82,7 @@ FROM '/private/tmp/data_rawquiz/pit_stops.csv'
 WITH (DELIMITER ',', FORMAT csv, HEADER MATCH);
 
 
-
+--running the code through terminal (tmp file)--
 -- SQLBook: Markup
 <font size = "5">
 
